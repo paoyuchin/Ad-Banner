@@ -5,10 +5,6 @@
   box-sizing: border-box;
 }
 
-#up {
-  bottom: 300px;
-}
-
 .bannerbox {
   margin-top: 16px;
   width: 100%;
@@ -25,11 +21,10 @@
         text-align: center;
         width: 1200px;
         height: 380px;
-        transition: 5s;
         position: relative;
+        transition: all 3s !important;
         img {
           width: 100%;
-          transition-duration: all 5s;
         }
         .btn {
           position: absolute;

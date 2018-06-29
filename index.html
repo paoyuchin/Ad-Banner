@@ -34,24 +34,31 @@
     var nowWord = $('.btn').html();
     var btntxt = $('.btn').html();
 
+
     function first() {
       $('.imgbox').css('bottom', '300px');
       $('.btn').css('display', 'block');
+      $('.imgbox').css('transition', '1s ');
       $('.btn').html('展開');
-
     }
     $('.btn').click(function () {
       // console.log('aaa');
       $('.imgbox').css('bottom', '0');
       $('.btn').html('合上');
+
+      if (btntxt === '合上') {
+        $('.btn').click(function () {;
+          $('.imgbox').css('bottom', '300');
+        });
+      } //end
+
+
     });
 
-    if (btntxt === '合上') {
-      $('.btn').click(function () {
-        // console.log('sss')
-        $('.imgbox').css('bottom', '300');
-      });
-    };
+
+
+
+
 
 
     setTimeout(first, 2000)
