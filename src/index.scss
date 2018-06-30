@@ -21,9 +21,9 @@
         text-align: center;
         width: 1200px;
         height: 380px;
-        position: relative; // transition: all 1s !important;
+        position: relative;
         img {
-          width: 100%; // transition: all 1s !important;
+          width: 100%;
         }
         .btn {
           position: absolute;
@@ -33,6 +33,7 @@
           color: white;
           padding: 3px;
           bottom: 0;
+          display: none;
         }
       }
     }
