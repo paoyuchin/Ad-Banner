@@ -33,44 +33,59 @@
   $(document).ready(function () {
     var stateCount = 0;
     var classes = {
-      closed: 'closed', // [string]
-      closing: 'closing', // [string] 
-      opened: 'opened', // [string] 
-      opening: 'opening' // [string] 
+      closed: 'closed',
+      closing: 'closing',
+      opened: 'opened',
+      opening: 'opening'
     };
+    var $btn = $('.btn');
+    var $target = $(".imgbox");
+    var down = '0';
+    var up = '300';
+    var sec = '1000';
+    var closetxt = '合上';
+    var opentxt = '展開'
+    // var aa = 'classes.closed classes.opening classes.opened classes.closed';
+    // var bb = 'classes.closed classes.opened classes.closing classes.opening';
 
     function startOpen() {
-      $(".imgbox").animate({
-        bottom: 300,
-      }, 1000, function () {
-        console.log('close completed')
-        $('.btn').css('display', 'block').text('展開');
-        $('.imgbox').addClass('closed')
+      var state = stateCount % 2;
+      console.log('state =' + state);
+      $target.animate({
+        bottom: up,
+      }, sec, function () {
+        $btn.css('display', 'block').text(opentxt);
+        $target.addClass(classes.closed);
       });
     } //open
-    $(".btn").click(function () {
+
+    function onBtnClick() {
       stateCount++;
       var state = stateCount % 2;
       console.log('state =' + state);
       if (state) {
-        $(".imgbox").addClass('opening').removeClass('closed').animate({
-          bottom: 0,
-        }, 1000, function () {
-          console.log('down completed');
-          $('.btn').text('合上');
-          $('.imgbox').removeClass('opening').addClass('opened')
-        });
+        $target.addClass(classes.opening).removeClass(
+            classes.closed)
+          .animate({
+            bottom: (down),
+          }, sec, function () {
+            console.log('up completed');
+            $btn.text(closetxt);
+            $target.addClass(classes.opened).removeClass(classes.opening)
+          });
       } else {
-        $(".imgbox").addClass('closing').removeClass('opened').animate({
-          bottom: 300,
-        }, 1000, function () {
-          console.log('down completed');
-          $('.btn').text('展開');
-          $('.imgbox').removeClass('closing').addClass('closed')
-        });
+        $target.addClass(classes.closing).removeClass(classes.opened).animate({
+            bottom: up,
+          }, sec,
+          function () {
+            console.log('down completed');
+            $btn.text(opentxt);
+            $target.addClass(classes.closed).removeClass(classes.closing)
+          });
       };
-    }); //btn click
-    setTimeout(startOpen, 2000)
+    } //onBtnClick
+    $btn.click(onBtnClick); //onBtnClick
+    setTimeout(startOpen, 2000) //startOpen
   }); //ready
 </script>
 
