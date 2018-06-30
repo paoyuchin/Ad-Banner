@@ -18,6 +18,7 @@
       position: relative; }
       .bannerbox .banner .wrap .imgbox {
         display: inline-block;
+        bottom: 300px;
         text-align: center;
         width: 1200px;
         height: 380px;
@@ -32,4 +33,4 @@
           color: white;
           padding: 3px;
           bottom: 0;
-          display: none; }
+          display: block; }

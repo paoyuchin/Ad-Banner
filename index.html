@@ -31,7 +31,6 @@
 <script>
   //向上收合+transition
   $(document).ready(function () {
-    var stateCount = 0;
     var classes = {
       closed: 'closed',
       closing: 'closing',
@@ -42,50 +41,82 @@
     var $target = $(".imgbox");
     var down = '0';
     var up = '300';
-    var sec = '1000';
-    var closetxt = '合上';
-    var opentxt = '展開'
-    // var aa = 'classes.closed classes.opening classes.opened classes.closed';
-    // var bb = 'classes.closed classes.opened classes.closing classes.opening';
+    var sec = '3000';
+    var closetxt = '收合';
+    var opentxt = '展開';
+    var changeStatus = 'closed' + ' ' + 'closing' + ' ' + 'opened' + ' ' + 'opening';
+    var openAtStart = false;
+    var autoToggle = false;
+    var transition = true;
+    var whenTransition = function (number) {
+      console.log(number)
+    }
 
-    function startOpen() {
-      var state = stateCount % 2;
-      console.log('state =' + state);
-      $target.animate({
-        bottom: up,
-      }, sec, function () {
-        $btn.css('display', 'block').text(opentxt);
-        $target.addClass(classes.closed);
-      });
-    } //open
+    function displayBanner(action) {
+      if (transition) {
+        if (action === 'open') {
+          $target.removeClass(changeStatus)
+            .addClass(classes.opening)
+            .animate({
+              bottom: down
+            }, {
+              duration: sec,
+              step: whenTransition,
+              complete: function () {
+                console.log('up completed');
+                $btn.text(opentxt);
+                $target.removeClass(changeStatus).addClass(classes.opened)
+              }
+            }); //開 
+        } else if (action === 'close') {
+          $target.removeClass(changeStatus).addClass(classes.closing).animate({
+            bottom: up,
+          }, {
+            duration: sec,
+            step: whenTransition,
+            complete: function () {
+              console.log('downompleted');
+              $btn.text(closetxt);
+              $target.removeClass(changeStatus).addClass(classes.closed);
+            }
+          });
+        } else {
+          console.log('unsupported arg');
+        }
+      } else {
+        if (action === 'close') {
+          $target.css('bottom', '300px');
+          $target.removeClass(changeStatus).addClass(classes.closed);
+          $btn.text(opentxt);
+        } else {
+          $target.css('bottom', '0px');
+          $target.removeClass(changeStatus).addClass(classes.opened);
+          $btn.text(closetxt);
+        }
+      }
+    } //displayBanner;
 
     function onBtnClick() {
-      stateCount++;
-      var state = stateCount % 2;
-      console.log('state =' + state);
-      if (state) {
-        $target.addClass(classes.opening).removeClass(
-            classes.closed)
-          .animate({
-            bottom: (down),
-          }, sec, function () {
-            console.log('up completed');
-            $btn.text(closetxt);
-            $target.addClass(classes.opened).removeClass(classes.opening)
-          });
+      if ($target.hasClass(classes.closed)) {
+        displayBanner('open');
       } else {
-        $target.addClass(classes.closing).removeClass(classes.opened).animate({
-            bottom: up,
-          }, sec,
-          function () {
-            console.log('down completed');
-            $btn.text(opentxt);
-            $target.addClass(classes.closed).removeClass(classes.closing)
-          });
+        displayBanner('close');
       };
     } //onBtnClick
+
+    $target.addClass(classes.closed)
+
+    if (openAtStart) {
+      $target.css('bottom', '0px');
+      $target.removeClass(changeStatus).addClass(classes.opened);
+    }
+
+    if (autoToggle) {
+      setTimeout(onBtnClick, 4000);
+    }
+
     $btn.click(onBtnClick); //onBtnClick
-    setTimeout(startOpen, 2000) //startOpen
+
   }); //ready
 </script>
 
