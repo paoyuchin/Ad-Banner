@@ -31,34 +31,24 @@
 <script>
   //向上收合+transition
   $(document).ready(function () {
-    var nowWord = $('.btn').html();
-    var btntxt = $('.btn').html();
-
 
     function first() {
-      $('.imgbox').css('bottom', '300px');
-      $('.btn').css('display', 'block');
-      $('.imgbox').css('transition', '1s ');
-      $('.btn').html('展開');
+      $(".imgbox").animate({
+        bottom: 300,
+      }, 1000, function () {
+        console.log('up completed')
+        $('.btn').html('展開');
+      });
     }
-    $('.btn').click(function () {
-      // console.log('aaa');
-      $('.imgbox').css('bottom', '0');
-      $('.btn').html('合上');
 
-      if (btntxt === '合上') {
-        $('.btn').click(function () {;
-          $('.imgbox').css('bottom', '300');
-        });
-      } //end
-
-
+    $(".btn").click(function () {
+      $(".imgbox").animate({
+        bottom: 0,
+      }, 1000, function () {
+        console.log('down completed')
+        $('.btn').html('合上');
+      });
     });
-
-
-
-
-
 
 
     setTimeout(first, 2000)
