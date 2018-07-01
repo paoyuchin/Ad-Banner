@@ -10,114 +10,31 @@
   <!-- css -->
   <link rel="stylesheet" href="src/index.css">
   <!--js -->
-  <script src="js/usage.js"></script>
   <script src="js/banner.js"></script>
   <title>Document</title>
 </head>
 
 <body>
-  <div class="bannerbox">
-    <div class="banner">
-      <a class="wrap" href="#">
-        <div class="imgbox">
-          <img class="img" src="imgs/1200x380.png" title="輸入廣告促銷說明文字" alt="輸入廣告促銷說明文字">
-          <div class="btn">合上</div>
-        </div>
-      </a>
-    </div>
+  <div class="banner">
+    <a class="wrap" href="#">
+      <!-- <div class="imgbox"> -->
+      <img class="img" src="imgs/1200x380.png" title="輸入廣告促銷說明文字" alt="輸入廣告促銷說明文字">
+      <div class="btn">合上</div>
+      <!-- </div> -->
+    </a>
   </div>
 </body>
 
 <script>
-  //向上收合+transition
-  $(document).ready(function () {
-    var classes = {
-      closed: 'closed',
-      closing: 'closing',
-      opened: 'opened',
-      opening: 'opening'
-    };
-    var $btn = $('.btn');
-    var $target = $(".imgbox");
-    var down = '0';
-    var up = '300';
-    var sec = '3000';
-    var closetxt = '收合';
-    var opentxt = '展開';
-    var changeStatus = 'closed' + ' ' + 'closing' + ' ' + 'opened' + ' ' + 'opening';
-    var openAtStart = false;
-    var autoToggle = false;
-    var transition = true;
-    var whenTransition = function (number) {
-      console.log(number)
-    }
-
-    function displayBanner(action) {
-      if (transition) {
-        if (action === 'open') {
-          $target.removeClass(changeStatus)
-            .addClass(classes.opening)
-            .animate({
-              bottom: down
-            }, {
-              duration: sec,
-              step: whenTransition,
-              complete: function () {
-                console.log('up completed');
-                $btn.text(opentxt);
-                $target.removeClass(changeStatus).addClass(classes.opened)
-              }
-            }); //開 
-        } else if (action === 'close') {
-          $target.removeClass(changeStatus).addClass(classes.closing).animate({
-            bottom: up,
-          }, {
-            duration: sec,
-            step: whenTransition,
-            complete: function () {
-              console.log('downompleted');
-              $btn.text(closetxt);
-              $target.removeClass(changeStatus).addClass(classes.closed);
-            }
-          });
-        } else {
-          console.log('unsupported arg');
-        }
-      } else {
-        if (action === 'close') {
-          $target.css('bottom', '300px');
-          $target.removeClass(changeStatus).addClass(classes.closed);
-          $btn.text(opentxt);
-        } else {
-          $target.css('bottom', '0px');
-          $target.removeClass(changeStatus).addClass(classes.opened);
-          $btn.text(closetxt);
-        }
-      }
-    } //displayBanner;
-
-    function onBtnClick() {
-      if ($target.hasClass(classes.closed)) {
-        displayBanner('open');
-      } else {
-        displayBanner('close');
-      };
-    } //onBtnClick
-
-    $target.addClass(classes.closed)
-
-    if (openAtStart) {
-      $target.css('bottom', '0px');
-      $target.removeClass(changeStatus).addClass(classes.opened);
-    }
-
-    if (autoToggle) {
-      setTimeout(onBtnClick, 4000);
-    }
-
-    $btn.click(onBtnClick); //onBtnClick
-
-  }); //ready
+  var $banner = $('.wrap')
+  $banner.banner({
+    openAtStart: true,
+    autoToggle: 1000,
+    transition: true
+  });
+  $banner.banner('toggle');
+  // $banner.banner('open');
+  // $banner.banner('close');
 </script>
 
 </html>
