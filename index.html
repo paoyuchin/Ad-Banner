@@ -17,10 +17,8 @@
 <body>
   <div class="banner">
     <a class="wrap" href="#">
-      <!-- <div class="imgbox"> -->
       <img class="img" src="imgs/1200x380.png" title="輸入廣告促銷說明文字" alt="輸入廣告促銷說明文字">
-      <div class="btn">合上</div>
-      <!-- </div> -->
+      <div class="btn">收合</div>
     </a>
   </div>
 </body>
@@ -30,9 +28,15 @@
   $banner.banner({
     openAtStart: true,
     autoToggle: 1000,
-    transition: true
+    transition: true,
+    classes: {
+      closed: "aa",
+      closing: "bb",
+      opened: "cc",
+      opening: "dd"
+    }
   });
-  $banner.banner('toggle');
+  // $banner.banner('toggle');
   // $banner.banner('open');
   // $banner.banner('close');
 </script>
